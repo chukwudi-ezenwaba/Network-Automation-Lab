@@ -1,4 +1,4 @@
-# Server 1 Fedora
+## Server 1 Fedora
 1. Check your device network interfaces 
     ```bash
     nmcli device
@@ -24,7 +24,7 @@
     nmcli device show ens18
     ip address show
 
-# Server 2 Ubuntu
+## Server 2 Ubuntu
 1. Check your device network interfaces 
     ```bash
     nmcli device
