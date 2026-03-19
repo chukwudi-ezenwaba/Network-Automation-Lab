@@ -36,15 +36,6 @@ This section prepares your Ubuntu and Fedora lab servers for use. It covers init
 
 ---
 
-## Quick Facts
-
-- **Time Required**: 15-30 minutes per server
-- **Difficulty**: Beginner-friendly
-- **Prerequisites**: SSH access to servers, sudo privileges
-- **Editing Required**: Yes (hostname configuration)
-
----
-
 ## Success Checklist
 
 - ✓ System packages are updated
