@@ -183,4 +183,4 @@ Once server configuration is complete:
 2. **IP Management** - Configure additional network interfaces
 3. **Network Topology** - Deploy device configurations and routing
 
-For navigation and overview, see the [README.md](README.md)
+For navigation and overview, see the [01-section_guide.md](01-section_guide.md)
