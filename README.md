@@ -50,4 +50,3 @@ sudo bash 01.server_setup/02.setup_services/install_python.sh
 - Automation scripts: `03.python_scripts/`
 - Lab docs and troubleshooting: `04.docs/`
 
-If you want, I can run quick checks or update additional folder READMEs to include example commands and usage for the Python automation scripts.
