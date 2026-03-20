@@ -18,7 +18,7 @@ Overview of scripts and how they map to lab scope:
 
 Requirements and setup
 
-1. Install Python 3 and the project requirements (recommended via the installer):
+1. Install Python 3 and the project requirements (recommended via the minimal installer):
 
 ```bash
 sudo bash ../01.server_setup/02.setup_services/install_python.sh
@@ -44,4 +44,6 @@ Notes
 - Each script should be reviewed and adapted to your device IPs, credentials, and environment before running. Credentials should be stored securely (not in plaintext scripts) — consider using environment variables or a secrets manager.
 - The `requirements.txt` in this directory lists the Python packages used by the scripts. The installer script will attempt to install these packages into the venv.
 
-If you want, I can add example inventory files and adjust the scripts to accept CLI arguments and config files for easier reuse.
+An example inventory file is provided at `03.python_scripts/inventory.txt`. The `ping_test.py` script reads this file by default but accepts `--inventory /path/to/file`.
+
+If you want, I can add example inventory files per lab topology and adapt other scripts to accept CLI arguments and config files for easier reuse.
