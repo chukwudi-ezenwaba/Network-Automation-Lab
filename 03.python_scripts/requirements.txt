@@ -1,0 +1,6 @@
+netmiko
+paramiko
+textfsm
+jinja2
+requests
+PyYAML
