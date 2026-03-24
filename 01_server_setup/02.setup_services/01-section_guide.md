@@ -72,6 +72,7 @@ Additionally, configuration files are typically timestamped when they are create
 | `ntp_config.sh` | Install and configure NTP on both servers | (To be implemented) |
 | `install_python.sh` | Install Python3, pip and virtualenv; install lab requirements | ✓ Created |
 | `make_script_exec.sh` | Make all scripts executable | ✓ Helper utility |
+| `ssh_key_auth.md` | Guide: SSH key-based authentication setup between servers and devices | ✓ Created |
 
 ---
 

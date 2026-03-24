@@ -1,0 +1,62 @@
+! Pull configuration from Linux server (TFTP / SFTP / FTP) 
+! Using provided credentials/server info:
+!   username: admin
+!   password: cisco123
+!   server IP: 192.168.2.201
+!
+! Recommended safe flow: copy backup to flash, verify, then load into running-config and save.
+!
+! --- TFTP (no username required)
+! Direct URL form (modern IOS):
+!   copy tftp://192.168.2.201/running.cfg flash:/running.cfg
+! Interactive form (older IOS):
+!   copy tftp flash:
+!   Address or name of remote host []? 192.168.2.201
+!   Source filename []? running.cfg
+!   Destination filename [running.cfg]? running.cfg
+!
+! --- SFTP (uses username/password)
+! Direct URL form (modern IOS):
+!   copy sftp://admin@192.168.2.201:/home/admin/backups/running.cfg flash:/running.cfg
+!   (When prompted enter password: cisco123)
+! Interactive form:
+!   copy sftp flash:
+!   Address or name of remote host []? 192.168.2.201
+!   Source filename []? /home/admin/backups/running.cfg
+!   Username []? admin
+!   Password? cisco123
+!   Destination filename [running.cfg]? running.cfg
+!
+! --- FTP (uses username/password)
+! Direct URL form:
+!   copy ftp://admin@192.168.2.201/backups/running.cfg flash:/running.cfg
+!   (When prompted enter password: cisco123)
+! Interactive form:
+!   copy ftp flash:
+!   Address or name of remote host []? 192.168.2.201
+!   Source filename []? /backups/running.cfg
+!   Username []? admin
+!   Password? cisco123
+!   Destination filename [running.cfg]? running.cfg
+!
+! After transfer completes — verify the file on flash:
+!   dir flash:
+!   more flash:running.cfg
+!
+! Load the backup into running configuration and save to startup-config:
+!   copy flash:running.cfg running-config
+!   write memory
+!   (or: copy running-config startup-config)
+!
+! Quick checks after loading:
+!   show running-config | include ^hostname
+!   show running-config | section interface
+!
+! Notes / troubleshooting:
+! - Ensure the server is reachable and the file path is correct and readable by the 'admin' user.
+! - For TFTP, no username is required; ensure the TFTP server serves the file from its root.
+! - For SFTP/FTP, provide the password when prompted (cisco123).
+! - If the device prompts to accept the server's host key on first connect, answer 'yes'.
+! - Copying to flash first avoids immediately changing live config; it's safer for verification.
+!
+! End of script
