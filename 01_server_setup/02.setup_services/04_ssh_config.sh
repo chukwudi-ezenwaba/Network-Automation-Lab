@@ -3,7 +3,7 @@
 # Simple SSH Setup with Password Authentication
 
 echo "Updating package list..."
-sudo apt update
+sudo apt update && sudo apt-get upgrade -y
 
 echo "Installing OpenSSH Server..."
 sudo apt install -y openssh-server
