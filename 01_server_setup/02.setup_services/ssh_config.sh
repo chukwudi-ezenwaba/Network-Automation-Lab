@@ -12,15 +12,17 @@ echo "Enabling and starting SSH service..."
 sudo systemctl enable ssh
 sudo systemctl start ssh
 
-echo "Configuring SSH for password authentication..."
 SSHD_CONFIG="/etc/ssh/sshd_config"
 
 # Backup original config
 sudo cp $SSHD_CONFIG ${SSHD_CONFIG}.bak
 
-# Ensure password authentication is enabled
-sudo sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication yes/' $SSHD_CONFIG
-sudo sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' $SSHD_CONFIG
+#change the default SSH port from 22 to 2022, we will use the loopback IP of '127.0.0.1' with port 2222 to SSH into the Ubuntu server
+sudo sed -i -E 's,^#?Port.*$,Port 2022,' /etc/ssh/sshd_config 
+
+# Disable password authentication (use keys only)
+sudo sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication no/' $SSHD_CONFIG
+sudo sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/' $SSHD_CONFIG
 
 echo "Restarting SSH service..."
 sudo systemctl restart ssh
