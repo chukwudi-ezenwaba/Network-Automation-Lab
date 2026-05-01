@@ -10,21 +10,21 @@ Prerequisites
 - A user account on servers for device uploads (e.g., `backup`) or use `admin` for testing
 -- Network devices: Cisco IOS / IOS‑XE routers and switches (this guide is Cisco‑specific)
 
-Overview (short)
+Overview 
 1. Generate an SSH key pair on the management host or on each server that will connect to devices.
 2. Install the public key on the target server or device (append to `~/.ssh/authorized_keys`).
 3. Verify key-based login and adjust permissions.
 
 Steps — Server side (Ubuntu LTS / Fedora)
 
-1. Create a dedicated user for device uploads (recommended):
+1. Create a dedicated user for device uploads:
 
 ```bash
-sudo useradd -m -s /bin/bash backup
-sudo passwd backup   # set a secure password once (optional)
+sudo useradd -m -s /bin/bash dev_admin
+sudo passwd dev_admin   # set a secure password once 
 ```
 
-2. On the machine that will initiate connections (admin workstation or the Ubuntu server), generate an SSH key pair.
+2. On the machine that will initiate connections (Linux server), generate an SSH key pair.
 
 For broad Cisco compatibility prefer an RSA key (2048 or 4096 bits). Use an empty passphrase for non‑interactive automation, or protect the key with a passphrase and use `ssh-agent`.
 
@@ -47,7 +47,7 @@ ssh-add ~/.ssh/lab_backup_rsa # Add the private key to the ssh-agent for passwor
 4. Copy the public key to the Ubuntu/Fedora server account that will receive connections (example uses `backup`):
 
 ```bash
-ssh-copy-id -i ~/.ssh/lab_backup_rsa.pub backup@192.168.2.201
+ssh-copy-id -i ~/.ssh/lab_backup_rsa.pub dev_admin@192.168.2.201
 # If ssh-copy-id is unavailable, on the target server:
 # mkdir -p ~backup/.ssh && cat lab_backup_rsa.pub >> ~backup/.ssh/authorized_keys
 # chmod 700 ~backup/.ssh; chmod 600 ~backup/.ssh/authorized_keys
@@ -56,7 +56,7 @@ ssh-copy-id -i ~/.ssh/lab_backup_rsa.pub backup@192.168.2.201
 5. Test passwordless login from the origin machine:
 
 ```bash
-ssh -i ~/.ssh/lab_backup_rsa backup@192.168.2.201
+ssh -i ~/.ssh/lab_backup_rsa dev_admin@192.168.2.201
 ```
 
 Server configuration notes
@@ -67,7 +67,7 @@ Device-side (Cisco IOS / IOS‑XE)
 
 Cisco IOS and IOS‑XE support importing OpenSSH‑style public keys into a device key chain. For maximum compatibility with IOS devices prefer an RSA public key (`ssh-rsa AAAA...`).
 
-1. Copy the public key text (contents of `~/.ssh/lab_backup_rsa.pub`). It will look like:
+1. Copy the public key text (contents of `cat ~/.ssh/lab_backup_rsa.pub`). It will look like:
 
 ```
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQ... user@host
@@ -89,7 +89,7 @@ write memory
 ```
 
 Notes:
-- Replace `backup` with the service account you created on servers. If the username does not exist on the device create it with `username <name> privilege <level> secret <pwd>`.
+- Replace `dev_admin` with the service account you created on servers. If the username does not exist on the device create it with `username <name> privilege <level> secret <pwd>`.
 - If your public key starts with `ssh-ed25519` and the device supports it, you may paste it the same way — however many IOS releases have better support for `ssh-rsa` keys.
 
 3. Verify the key is present in the running config and test login from the origin host:
